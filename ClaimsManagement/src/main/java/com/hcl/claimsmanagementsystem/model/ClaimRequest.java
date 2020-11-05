@@ -3,16 +3,33 @@
  */
 package com.hcl.claimsmanagementsystem.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @author reddy-madhumitha
  *
  */
+@Entity
+@Table(name="claimrequest")
 public class ClaimRequest {
+	@Id
+	@NotEmpty
 	private int id;
+	@NotEmpty
 	private String claimInformation;
+	@NotEmpty
 	private String reason;
+	@NotEmpty
 	private String status;
+	@NotEmpty
 	private String claimId;
+	@NotEmpty
 	private String memberId;
 	
 	/**

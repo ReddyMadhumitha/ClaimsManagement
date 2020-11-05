@@ -1,5 +1,7 @@
 package com.hcl.claimsmanagementsystem.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +13,33 @@ import com.hcl.claimsmanagementsystem.repository.UserDao;
  * @author reddy-madhumitha
  *
  */
-@Service 
-public class UserServiceImpl implements UserService {
-	@Autowired
+
+
+@Service
+public class UserServiceImpl implements UserService{
+    @Autowired
     UserDao userDao;
-    public boolean register(User usr) {
-        userDao.register(usr);
-        return true;
-    }
-    
-    public boolean login(Credential credential) {
-        userDao.login(credential);
-        return true;
-    }
+   
+	@Override
+	public boolean registerUser(@Valid User user) {
+		// TODO Auto-generated method stub
+		 if(userDao.registerUser(user)) {
+	        	return true;
+	        }
+		return false;
+	}
+
+
+	
+
+	@Override
+	public boolean loginUser(@Valid Credential userCredential) {
+		if(userDao.loginUser(userCredential)) {
+        	return true;
+        }
+		return false;
+	}
 }
 
+	
+    

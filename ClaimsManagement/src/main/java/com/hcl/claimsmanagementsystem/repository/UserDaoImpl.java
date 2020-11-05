@@ -4,11 +4,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import javax.validation.Valid;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.sql.Insert;
 import org.springframework.stereotype.Repository;
-
 import com.hcl.claimsmanagementsystem.model.Credential;
 import com.hcl.claimsmanagementsystem.model.User;
+import com.hcl.claimsmanagementsystem.util.HibernateUtil;
 
 /**
  * @author reddy-madhumitha
@@ -16,50 +22,55 @@ import com.hcl.claimsmanagementsystem.model.User;
  */
 @Repository
 public class UserDaoImpl implements UserDao {
-    static Connection conn = null;
+
+	static Connection conn = null;
 	{
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/CLAIM_REGISTRATION", "root", "root");
 		} catch (Exception e) {
-			System.out.println("Error occured during connection creation " + e);
+			System.out.println("Error occured during connection creation " + e.getMessage());
 		}
 	}
 
-	public boolean register(User user) {
-		try {
-			PreparedStatement pst = conn
-					.prepareStatement("insert into user(roleId,userId,password) values(?,?,?)");
-			pst.setInt(1, user.getRoleId());
-			pst.setInt(2, Integer.parseInt(user.getUserId()));
-			pst.setString(3, user.getPassword());
+	@Override
+	public boolean registerUser(@Valid User user) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		int i = (Integer) session.save(user);
+		session.getTransaction().commit();
+		HibernateUtil.shutdown();
 
-			pst.executeUpdate();
-
+		if (i == 0) {
 			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error occured during insert user record" + e.getMessage());
 		}
-
 		return false;
 	}
+
 	
 
-	public boolean login(Credential credential) {
-		try {
-			PreparedStatement pst = conn
-					.prepareStatement("select * from user where userId=? and password=?");
-			pst.setString(1, credential.getUserId());
-			pst.setString(2, credential.getPassword());
-			ResultSet rs=pst.executeQuery();
-			if(rs.next()) {
-				return true;
-			}
-		} catch(Exception e) {
-			System.out.println(e);
-		}
-		return false;
-	}
-}
+	@Override
+	public boolean loginUser(@Valid Credential Credential) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		boolean userFound = false;
+		String SQL_QUERY = " from User as a where a.userId=?0 and a.password=?1";
+		Query query = session.createQuery(SQL_QUERY);
+		query.setParameter(0, Credential.getUserId());
+		query.setParameter(1, Credential.getPassword());
+		List list = ((org.hibernate.query.Query) query).list();
 
+		if ((list != null) && (list.size() > 0)) {
+			userFound = true;
+		}
+
+		// session.close();
+		session.getTransaction().commit();
+		HibernateUtil.shutdown();
+		return userFound;
+		// return false;
+	}
+
+}

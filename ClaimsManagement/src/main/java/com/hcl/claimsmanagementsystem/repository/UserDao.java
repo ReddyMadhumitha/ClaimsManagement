@@ -3,6 +3,8 @@
  */
 package com.hcl.claimsmanagementsystem.repository;
 
+import javax.validation.Valid;
+
 import com.hcl.claimsmanagementsystem.model.Credential;
 import com.hcl.claimsmanagementsystem.model.User;
 
@@ -10,9 +12,9 @@ import com.hcl.claimsmanagementsystem.model.User;
  * @author reddy-madhumitha
  *
  */
+
+
 public interface UserDao {
-	boolean register(User user);
-    boolean login(Credential credential);
-}
-
-
+    boolean register(@Valid User user);
+	boolean login(@Valid Credential Credential);
+	}

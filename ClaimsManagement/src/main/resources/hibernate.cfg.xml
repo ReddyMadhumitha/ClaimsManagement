@@ -6,7 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/hospital_management_system</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/CLAIM_REGISTRATION</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">root</property>
 		<property name="hbm2ddl.auto">update</property>
@@ -14,7 +14,12 @@
 		<property name="hibernate.connection.autocommit">false</property>
 		<property name="show_sql">true</property>
 		<mapping class="com.hcl.claimsmanagementsystem.model.User" />
-		<mapping class="com.hcl.claimsmanagementsystem.model.Role" />
+		<mapping class="com.hcl.claimsmanagementsystem.model.Credential" />
+		<mapping class="com.hcl.claimsmanagementsystem.model.UserDetails" />
+		<mapping class="com.hcl.claimsmanagementsystem.model.Payment" />
+		<mapping class="com.hcl.claimsmanagementsystem.model.ClaimRequest" />
+		<mapping class="com.hcl.claimsmanagementsystem.model.Admin" />
+		
 		
 	</session-factory>
 </hibernate-configuration>

@@ -3,18 +3,38 @@
  */
 package com.hcl.claimsmanagementsystem.model;
 
+
+import javax.persistence.Entity;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Range;
+
 /**
  * @author reddy-madhumitha
  *
  */
+@Entity
+@Table(name="userdetails")
 public class UserDetails {
+	@Id
+	@NotEmpty
 	private int id;
+	@NotEmpty
 	private String firstName;
+	@NotEmpty
 	private String lastName;
+	@Range(min=18,max=50)
 	private int age;
+	@NotEmpty
 	private String gender;
+	@NotEmpty
 	private String contactNumber;
+	@NotEmpty
 	private String status;
+	@NotEmpty
 	private String userId;
 	/**
 	 * 

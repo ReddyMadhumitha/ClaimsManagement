@@ -1,15 +1,40 @@
 package com.hcl.claimsmanagementsystem.model;
 
+
+import javax.persistence.Entity;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Range;
+
+
+
+
+
+@Entity
+@Table(name="admin")
 public class Admin {
+	@Id
 	private int id;
+	@NotEmpty
 	private String firstName;
+	@NotEmpty
 	private String lastName;
+	@Range(min=18,max=50)
 	private String age;
+	@NotEmpty
 	private String gender;
+	@NotEmpty
 	private String contactNumber;
+	@NotEmpty
 	private String adminId;
+	@NotEmpty
 	private String password;
+	@NotEmpty
 	private String confirmPassword;
+	@NotEmpty
 	private String aadharNumber;
 	/**
 	 * 

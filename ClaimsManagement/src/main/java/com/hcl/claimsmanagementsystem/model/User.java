@@ -1,14 +1,28 @@
 package com.hcl.claimsmanagementsystem.model;
+import javax.persistence.Entity;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author reddy-madhumitha
  *
  */
+@Entity
+@Table(name="user")
 public class User {
+	@Id
+	@NotEmpty
 	private int id;
+	@NotEmpty
 	private String userId;
+	@NotEmpty
 	private String password;
+	@NotEmpty
 	private String confirmPassword;
+	@Id
+	@NotEmpty
 	private int roleId;
 	/**
 	 * @param id

@@ -3,15 +3,30 @@
  */
 package com.hcl.claimsmanagementsystem.model;
 
+
+import javax.persistence.Entity;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @author reddy-madhumitha
  *
  */
+@Entity
+@Table(name="payment")
 public class Payment {
+	@Id
+	@NotEmpty
 	private int id;
+	@NotEmpty
 	private String requestAmount;
+	@NotEmpty
 	private String claimAmount;
+	@NotEmpty
 	private String claimId;
+	@NotEmpty
 	private String memberId;
 	/**
 	 * @param id
